@@ -1,16 +1,34 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import { addItem, minusItem, removeItem } from "../redux/slices/cartSlice";
+import { addItem, CartItem, minusItem, removeItem } from "../redux/slices/cartSlice";
 
-const CartItem = ({ id, title, type, size, price, count, imageUrl }) => {
+type CartItemProps = {
+	id: string;
+	title: string;
+	type: string;
+	size: number;
+	price: number;
+	count: number;
+	imageUrl: string;
+};
+
+const CartItemBlock: React.FC<CartItemProps> = ({
+	id,
+	title,
+	type,
+	size,
+	price,
+	count,
+	imageUrl,
+}) => {
 	const dispatch = useDispatch();
 
 	const onClickPlus = () => {
 		dispatch(
 			addItem({
 				id,
-			}),
+			} as CartItem),
 		);
 	};
 
@@ -40,7 +58,8 @@ const CartItem = ({ id, title, type, size, price, count, imageUrl }) => {
 				</p>
 			</div>
 			<div className="cart__item-count">
-				<div
+				<button
+					disabled={count === 1}
 					onClick={onClickMinus}
 					className="button button--outline button--circle cart__item-count-minus"
 				>
@@ -60,9 +79,9 @@ const CartItem = ({ id, title, type, size, price, count, imageUrl }) => {
 							fill="#EB5A1E"
 						/>
 					</svg>
-				</div>
+				</button>
 				<b>{count}</b>
-				<div
+				<button
 					onClick={onClickPlus}
 					className="button button--outline button--circle cart__item-count-plus"
 				>
@@ -82,7 +101,7 @@ const CartItem = ({ id, title, type, size, price, count, imageUrl }) => {
 							fill="#EB5A1E"
 						/>
 					</svg>
-				</div>
+				</button>
 			</div>
 			<div className="cart__item-price">
 				<b>{price * count} ₽</b>
@@ -114,4 +133,4 @@ const CartItem = ({ id, title, type, size, price, count, imageUrl }) => {
 	);
 };
 
-export default CartItem;
+export default CartItemBlock;
