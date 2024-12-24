@@ -1,0 +1,11 @@
+102.23 kB build\static\js\main.330e9017.js
+2.86 kB build\static\css\main.e75d4c23.css
+
+=================================================
+
+101.96 kB (-1.08 kB) build\static\js\main.d1c45fd5.js
+2.8 kB (-59 B) build\static\css\main.241b2023.css
+2.46 kB build\static\js\714.672fb8af.chunk.js
+596 B build\static\js\788.a6dc8b64.chunk.js
+355 B build\static\js\761.95ff7532.chunk.js
+197 B build\static\css\761.6c9a2f73.chunk.css

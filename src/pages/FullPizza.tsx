@@ -1,47 +1,54 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import React from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const FullPizza: React.FC = () => {
-	const [pizza, setPizza] = useState<{
-		imageUrl: string;
-		title: string;
-		price: string;
-	}>();
-	const { id } = useParams();
-	const navigate = useNavigate();
+   const [pizza, setPizza] = React.useState<{
+      imageUrl: string;
+      title: string;
+      price: number;
+   }>();
 
-	useEffect(() => {
-		async function fetchPizza() {
-			try {
-				const { data } = await axios.get(
-					"https://6688719f0ea28ca88b85405a.mockapi.io/items/" + id,
-				);
-				setPizza(data);
-			} catch (error) {
-				alert("Ошибка при получении пиццы!");
-				navigate("/");
-			}
-		}
+   const { id } = useParams();
+   const navigate = useNavigate();
 
-		fetchPizza();
-	}, [id, navigate]);
+   React.useEffect(() => {
+      async function fetchPizza() {
+         try {
+            const { data } = await axios.get(
+               "https://6688719f0ea28ca88b85405a.mockapi.io/items/" + id
+            );
+            setPizza(data);
+         } catch (error) {
+            alert("Ошибка при получении пиццы!");
+            navigate("/");
+         }
+      }
 
-	if (!pizza) {
-		return <>Загрузка...</>;
-	}
-	return (
-		<div className="container cart__info--container">
-			<img
-				src={pizza.imageUrl}
-				alt="pizza"
-			/>
-			<div className="cart__info--card">
-				<h2 className="cart__info--title">{pizza.title}</h2>
-				<h4 className="cart__info--price">{pizza.price} ₽</h4>
-			</div>
-		</div>
-	);
+      fetchPizza();
+   }, []);
+
+   if (!pizza) {
+      return <>"Загрузка..."</>;
+   }
+
+   return (
+      <div className="container">
+         <div className="fullpizza">
+            <img src={pizza.imageUrl} alt="" />
+            <div className="fullpizza__line"></div>
+            <div className="fullpizza__descr">
+               <h2>{pizza.title}</h2>
+               <h4>{pizza.price} ₽</h4>
+               <button
+                  onClick={() => navigate(-1)}
+                  className="button button--outline button--add">
+                  <span>Prev</span>
+               </button>
+            </div>
+         </div>
+      </div>
+   );
 };
 
 export default FullPizza;
